@@ -20,39 +20,67 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="text-center p-10 bg-green-50 rounded-xl">
+      <div className="max-w-2xl mx-auto my-20 text-center p-10 bg-green-50 rounded-2xl border border-green-100">
         <h3 className="text-2xl font-bold text-green-700">¡Mensaje enviado!</h3>
-        <p className="text-green-600">Te contactaremos lo antes posible.</p>
+        <p className="text-green-600 mt-2">Te contactaremos lo antes posible para revisar tu presupuesto.</p>
       </div>
     );
   }
 
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-24 bg-slate-50">
       <div className="max-w-2xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-8">Hablemos de tu proyecto</h2>
-        <form action={handleSubmit} className="space-y-4">
+        {/* Título corregido y con mejor contraste */}
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-10">
+          Hablemos de tu presupuesto
+        </h2>
+        
+        <form action={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-1">Nombre</label>
-            <input name="name" required className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none" />
+            <label className="block text-sm font-bold text-slate-700 mb-2">Nombre</label>
+            <input 
+              name="name" 
+              placeholder="Tu nombre completo"
+              required 
+              className="w-full p-4 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" 
+            />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <input name="email" type="email" required className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none" />
+              <label className="block text-sm font-bold text-slate-700 mb-2">Email</label>
+              <input 
+                name="email" 
+                type="email" 
+                placeholder="correo@ejemplo.com"
+                required 
+                className="w-full p-4 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" 
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Teléfono</label>
-              <input name="phone" className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none" />
+              <label className="block text-sm font-bold text-slate-700 mb-2">Teléfono</label>
+              <input 
+                name="phone" 
+                placeholder="+56 9..."
+                className="w-full p-4 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" 
+              />
             </div>
           </div>
+
           <div>
-            <label className="block text-sm font-medium mb-1">Mensaje</label>
-            <textarea name="message" rows={4} required className="w-full p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Mensaje o detalles del proyecto</label>
+            <textarea 
+              name="message" 
+              rows={4} 
+              placeholder="Cuéntame brevemente qué necesitas..."
+              required 
+              className="w-full p-4 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+            ></textarea>
           </div>
+
           <button 
             disabled={isPending}
-            className="w-full py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 disabled:bg-slate-400 transition-colors"
+            className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 disabled:bg-slate-400 transition-all active:scale-[0.98]"
           >
             {isPending ? 'Enviando...' : 'Enviar Propuesta'}
           </button>
