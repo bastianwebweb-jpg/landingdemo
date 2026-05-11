@@ -116,22 +116,26 @@ export default function ReciclArt() {
         />
       </section>
 
-      {/* ISLA DE COCINA */}
+      {/* SECCIÓN ISLA DE COCINA - Versión móvil corregida */}
       <section className="py-20 md:py-48 px-6 md:px-12 bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-12 md:gap-20 items-center">
+          
           <div className="md:col-span-7">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }} 
               transition={{ duration: 1.2, ease: "easeOut" }}
             >
-              <div className="aspect-[16/12] md:aspect-auto overflow-hidden rounded-2xl">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] md:aspect-auto overflow-hidden rounded-3xl">
                 <Image
                   src="/images/2.jpg"
                   alt="Isla de cocina ReciclArt"
                   fill
                   className="object-cover grayscale-[0.35] hover:grayscale-0 transition-all duration-1000"
                   sizes="(max-width: 768px) 100vw, 70vw"
+                  priority={false}
+                  quality={90}
                 />
               </div>
             </motion.div>
