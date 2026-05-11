@@ -1,242 +1,287 @@
-"use client";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import Image from "next/image";
+'use client';
 
-export default function ReciclArt() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const heroScale = useTransform(scrollYProgress, [0, 0.4], [1.12, 1]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-
+export default function Home() {
   return (
-    <main ref={containerRef} className="bg-[#0a0a0a] text-[#f5f5f5] overflow-x-hidden antialiased selection:bg-amber-500/20">
-      
-      {/* NAVEGACIÓN */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-3xl md:text-4xl font-serif tracking-tighter"
-        >
-          R<span className="text-amber-500">.</span>
-        </motion.div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-12 text-xs uppercase tracking-[0.5em] font-medium">
-          {["Colecciones", "Nuestro Proceso", "Contacto"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/\s+/g, '')}`}
-              className="hover:text-amber-500 transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[1px] after:bg-amber-500 after:w-0 hover:after:w-full after:transition-all"
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-
-        <div className="hidden md:block text-xs uppercase tracking-widest px-6 py-3 border border-white/10 rounded-full backdrop-blur-md">
-          Chile • VI Región
-        </div>
-
-        {/* Botón móvil */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-4xl active:scale-90 transition-transform"
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
-      </nav>
-
-      {/* MOBILE MENU - Mejorado */}
-      {menuOpen && (
-        <div className="fixed inset-0 bg-black/98 z-[60] flex items-center justify-center md:hidden backdrop-blur-xl">
-          <div className="flex flex-col items-center gap-12 text-3xl font-light tracking-wide">
-            {["Colecciones", "Nuestro Proceso", "Contacto"].map((item, i) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s+/g, '')}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                onClick={() => setMenuOpen(false)}
-                className="hover:text-amber-500 transition-colors"
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* HERO - Optimizado para móvil */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <motion.div style={{ scale: heroScale }} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/80 z-10" />
-          <Image
-            src="/images/1.jpg"
-            alt="Mobiliario ReciclArt"
-            fill
-            className="object-cover"
-            priority
-            quality={95}
-            sizes="100vw"
-          />
-        </motion.div>
-
-        <motion.div 
-          style={{ opacity: heroOpacity }} 
-          className="relative z-20 text-center px-6 max-w-4xl"
-        >
-          <p className="uppercase tracking-[0.6em] text-xs md:text-sm mb-4 md:mb-6 opacity-75">
-            Mobiliario de Culto
-          </p>
-          
-          <h1 className="text-6xl sm:text-7xl md:text-[13rem] leading-[0.85] font-serif tracking-[-0.04em] mb-4">
-            Recicl<span className="text-amber-500/90 italic font-light">Art</span>
-          </h1>
-          
-          <p className="text-lg md:text-xl font-light tracking-wide opacity-70 max-w-md mx-auto">
-            Piezas únicas con alma de madera nativa
-          </p>
-        </motion.div>
-
-        {/* Scroll indicator - solo desktop */}
-        <motion.div
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 w-px h-16 bg-gradient-to-b from-transparent via-amber-500 to-transparent hidden md:block"
-        />
-      </section>
-
-      {/* SECCIÓN ISLA DE COCINA */}
-      <section className="py-20 md:py-48 px-6 md:px-12 bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-12 md:gap-20 items-center">
-          
-          <div className="md:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-            >
-              <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-3xl">
-                <Image
-                  src="/images/2.jpg"
-                  alt="Isla de cocina ReciclArt"
-                  fill
-                  className="object-cover grayscale-[0.35] hover:grayscale-0 transition-all duration-1000"
-                  sizes="(max-width: 768px) 100vw, 70vw"
-                  quality={90}
-                />
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="md:col-span-5 space-y-8 md:space-y-10">
-            <h2 className="text-5xl md:text-7xl font-serif leading-tight">
-              El corazón <span className="italic text-amber-500">del hogar.</span>
-            </h2>
-            <p className="text-[17px] md:text-lg text-stone-400 leading-relaxed">
-              Nuestras islas de cocina no son solo muebles; son estaciones de vida diseñadas para resistir el paso del tiempo y las historias de cada familia.
-            </p>
-            <div className="pt-6 border-t border-white/10 flex items-center gap-4">
-              <div className="h-px w-12 bg-amber-500" />
-              <span className="uppercase text-xs tracking-[0.4em]">Sostenibilidad Nativa</span>
+    <div className="min-h-screen bg-[#f8f5f0] font-sans">
+      {/* Navbar */}
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-[#c4a484]">
+              <Image 
+                src="/images/logo-su-taller.png" 
+                alt="Su Taller de Artesanía" 
+                width={48} 
+                height={48} 
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-[#3a2f1f]">Su Taller</h1>
+              <p className="text-xs text-[#8c6f4e] -mt-1">Artesanía Maule</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* HERRAJES */}
-      <section className="bg-[#f8f7f4] text-[#111] py-20 md:py-32">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid md:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
-            <div className="md:col-span-7">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 1 }}
-                className="relative"
-              >
-                <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl">
-                  <Image
-                    src="/images/4.jpg"
-                    alt="Consola con herrajes"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 65vw"
-                    quality={90}
-                  />
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="md:col-span-5 space-y-10">
-              <div>
-                <h3 className="text-4xl md:text-6xl font-serif leading-tight mb-6 md:mb-8">
-                  Herrajes con Historia
-                </h3>
-                <p className="text-[17px] text-stone-600 leading-relaxed">
-                  Utilizamos acero forjado y técnicas de pátina manual para lograr ese look industrial auténtico que define nuestra línea premium.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl">
-                <div className="text-center">
-                  <span className="uppercase text-amber-700 text-xs tracking-widest block mb-4">Ediciones Limitadas</span>
-                  <p className="text-2xl italic font-serif leading-tight">
-                    "Cada veta de la madera dicta el diseño final."
-                  </p>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="mt-10 w-full md:w-auto px-12 py-5 bg-black text-white text-sm tracking-[0.4em] hover:bg-amber-500 transition-all duration-300 rounded-2xl"
-                  >
-                    SOLICITAR COTIZACIÓN
-                  </motion.button>
-                </div>
-              </div>
-            </div>
+          <div className="hidden md:flex items-center gap-8 text-[#3a2f1f] font-medium">
+            <Link href="#inicio" className="hover:text-[#c4a484] transition-colors">Inicio</Link>
+            <Link href="#productos" className="hover:text-[#c4a484] transition-colors">Productos</Link>
+            <Link href="#talleres" className="hover:text-[#c4a484] transition-colors">Talleres</Link>
+            <Link href="#nosotros" className="hover:text-[#c4a484] transition-colors">Nosotros</Link>
           </div>
-        </div>
-      </section>
 
-      {/* CTA FINAL */}
-      <section className="py-28 md:py-60 bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
-        <div className="text-center px-6 relative z-10">
-          <h2 className="text-5xl md:text-8xl font-serif tracking-tight leading-none mb-10 md:mb-12">
-            ¿Comenzamos<br />
-            <span className="text-amber-500">tu proyecto?</span>
-          </h2>
-
-          <a
-            href="https://wa.me/56974768123"
+          <a 
+            href="https://www.instagram.com/su_tallerdeartesania" 
             target="_blank"
-            className="group inline-block"
+            className="flex items-center gap-2 bg-[#E4405F] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#d62e4f] transition-colors"
           >
-            <div className="relative px-14 py-6 bg-amber-500 text-black font-medium text-sm tracking-widest hover:bg-white transition-all duration-500 rounded-2xl active:scale-95">
-              CONTACTAR POR WHATSAPP
-              <div className="absolute -inset-2 bg-amber-500/30 blur-2xl scale-95 group-hover:scale-100 transition-transform" />
-            </div>
+            <span>Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.849.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4 2.21 0 4 1.791 4 4 0 2.21-1.79 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
           </a>
         </div>
+      </nav>
 
-        <div className="absolute bottom-6 text-[10px] opacity-30 tracking-widest flex justify-between w-full px-6 md:px-12">
-          <div>RECICLART CHILE © 2026</div>
-          <div className="text-right">DISEÑO DE AUTOR • MADERA RECUPERADA</div>
+      {/* HERO MEJORADO PARA MÓVIL */}
+      <section id="inicio" className="relative min-h-[100dvh] flex items-center justify-center bg-[#3a2f1f] overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/images/logo-su-taller.png')] bg-cover bg-center opacity-10"></div>
+        
+        <div className="relative max-w-4xl mx-auto text-center px-6 z-10 pt-10 pb-16">
+          {/* Logo */}
+          <div className="mx-auto w-32 h-32 md:w-40 md:h-40 mb-6 md:mb-8 rounded-full overflow-hidden border-8 border-white/30 shadow-2xl">
+            <Image 
+              src="/images/logo-su-taller.png" 
+              alt="Su Taller de Artesanía Maule" 
+              width={160} 
+              height={160} 
+              className="object-cover"
+            />
+          </div>
+          
+          {/* Título */}
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 tracking-tight leading-tight">
+            Su Taller de<br />Artesanía Maule
+          </h2>
+          
+          {/* Subtítulo */}
+          <p className="text-lg sm:text-xl md:text-2xl text-[#e8d9c0] mb-10 max-w-md mx-auto">
+            Cerámica, mosaico y pintura de aros con alma
+          </p>
+          
+          {/* Botones */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xs mx-auto">
+            <a href="#productos" className="bg-[#c4a484] hover:bg-[#b08f5f] text-[#3a2f1f] font-semibold px-10 py-4 rounded-full text-lg transition-all duration-300">
+              Ver Colección
+            </a>
+            <a href="#talleres" className="border-2 border-white text-white hover:bg-white hover:text-[#3a2f1f] font-semibold px-10 py-4 rounded-full text-lg transition-all duration-300">
+              Talleres
+            </a>
+          </div>
+        </div>
+
+        {/* Scroll indicator - solo visible en desktop */}
+        <div className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 text-white/70 text-sm flex-col items-center">
+          <span>Desliza para explorar</span>
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full mt-2 flex items-center justify-center">
+            <div className="w-1 h-2 bg-white/70 rounded-full animate-bounce"></div>
+          </div>
         </div>
       </section>
-    </main>
+
+      {/* Productos */}
+      <section id="productos" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-[#3a2f1f] mb-4">Nuestras Creaciones</h2>
+            <p className="text-xl text-[#6b5c47] max-w-2xl mx-auto">
+              Piezas únicas hechas a mano con amor en el Maule
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Producto 1 */}
+            <div className="group bg-[#f8f5f0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+              <div className="relative h-[380px] overflow-hidden">
+                <Image 
+                  src="/images/2.jpg" 
+                  alt="Aros de pizza" 
+                  fill 
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold text-[#3a2f1f]">Aros Triángulo de Pizza</h3>
+                <p className="text-[#8c6f4e] mt-2">Cerámica esmaltada • Edición divertida</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-2xl font-bold text-[#c4a484]">$12.000</span>
+                  <button className="bg-[#3a2f1f] text-white px-6 py-2 rounded-full text-sm hover:bg-[#c4a484] hover:text-[#3a2f1f] transition-colors">
+                    Ver más
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Producto 2 */}
+            <div className="group bg-[#f8f5f0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+              <div className="relative h-[380px] overflow-hidden">
+                <Image 
+                  src="/images/3.jpg" 
+                  alt="Collar de perro salchicha" 
+                  fill 
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold text-[#3a2f1f]">Collar Salchicha</h3>
+                <p className="text-[#8c6f4e] mt-2">Cerámica • Cadena de cuero</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-2xl font-bold text-[#c4a484]">$18.500</span>
+                  <button className="bg-[#3a2f1f] text-white px-6 py-2 rounded-full text-sm hover:bg-[#c4a484] hover:text-[#3a2f1f] transition-colors">
+                    Ver más
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Producto 3 */}
+            <div className="group bg-[#f8f5f0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+              <div className="relative h-[380px] overflow-hidden">
+                <Image 
+                  src="/images/4.jpg" 
+                  alt="Aros estrella azul" 
+                  fill 
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold text-[#3a2f1f]">Aros Estrella Azul</h3>
+                <p className="text-[#8c6f4e] mt-2">Cerámica esmaltada • Acero</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-2xl font-bold text-[#c4a484]">$14.900</span>
+                  <button className="bg-[#3a2f1f] text-white px-6 py-2 rounded-full text-sm hover:bg-[#c4a484] hover:text-[#3a2f1f] transition-colors">
+                    Ver más
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <a href="https://www.instagram.com/su_tallerdeartesania" target="_blank" className="inline-flex items-center gap-3 text-[#c4a484] hover:text-[#9c7c5a] text-lg font-medium">
+              Ver todos los productos en Instagram 
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Talleres */}
+      <section id="talleres" className="py-20 bg-[#3a2f1f] text-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="inline-block bg-[#c4a484] text-[#3a2f1f] text-sm font-semibold px-4 py-2 rounded-full mb-6">
+                Experiencias creativas
+              </div>
+              <h2 className="text-5xl font-bold leading-tight mb-8">
+                Talleres para niños<br />y adultos
+              </h2>
+              <p className="text-xl text-[#e8d9c0] mb-10">
+                Aprende a crear con cerámica, mosaico y pintura. 
+                Momentos de conexión, creatividad y mucha diversión.
+              </p>
+              
+              <div className="space-y-6">
+                <div className="flex gap-5">
+                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl">🎨</div>
+                  <div>
+                    <h4 className="text-xl font-semibold">Talleres infantiles</h4>
+                    <p className="text-[#c4c0b5]">De 6 a 14 años</p>
+                  </div>
+                </div>
+                <div className="flex gap-5">
+                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl">🪔</div>
+                  <div>
+                    <h4 className="text-xl font-semibold">Cerámica y Esmaltado</h4>
+                    <p className="text-[#c4c0b5]">Nivel principiante e intermedio</p>
+                  </div>
+                </div>
+                <div className="flex gap-5">
+                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0 text-3xl">🧩</div>
+                  <div>
+                    <h4 className="text-xl font-semibold">Mosaico Creativo</h4>
+                    <p className="text-[#c4c0b5]">Para todas las edades</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-10 border border-white/20">
+              <p className="italic text-2xl leading-relaxed">
+                "Crea, disfruta, regala o luce tu propio arte"
+              </p>
+              <div className="mt-10 pt-8 border-t border-white/20">
+                <p className="font-medium">¿Quieres organizar un taller?</p>
+                <a href="#" className="mt-4 inline-block bg-white text-[#3a2f1f] px-8 py-4 rounded-full font-semibold hover:bg-[#c4a484] transition-colors">
+                  Contáctanos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#2a241a] text-white py-16">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <Image 
+                src="/images/logo-su-taller.png" 
+                alt="Logo" 
+                width={60} 
+                height={60} 
+                className="rounded-full"
+              />
+              <div>
+                <p className="font-bold text-2xl">Su Taller</p>
+                <p className="text-[#c4a484]">Artesanía Maule</p>
+              </div>
+            </div>
+            <p className="text-[#b8a78f]">Emprendimiento familiar dedicado a la creación artesanal con alma y pasión.</p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-lg mb-6">Enlaces rápidos</h4>
+            <ul className="space-y-3 text-[#b8a78f]">
+              <li><a href="#productos" className="hover:text-white transition-colors">Productos</a></li>
+              <li><a href="#talleres" className="hover:text-white transition-colors">Talleres</a></li>
+              <li><a href="https://www.instagram.com/su_tallerdeartesania" target="_blank" className="hover:text-white transition-colors">@su_tallerdeartesania</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-lg mb-6">Contáctanos</h4>
+            <p className="text-[#b8a78f]">Talca, Región del Maule</p>
+            <p className="text-[#b8a78f] mt-2">📍 Chile</p>
+            
+            <div className="mt-8">
+              <a href="https://www.instagram.com/su_tallerdeartesania" target="_blank" className="text-[#c4a484] hover:text-white flex items-center gap-3">
+                <span className="text-2xl">📷</span>
+                <span>Síguenos en Instagram</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center text-xs text-[#8c6f4e] mt-16 border-t border-white/10 pt-8">
+          © 2026 Su Taller de Artesanía Maule • Hecho con ❤️ y arcilla
+        </div>
+      </footer>
+    </div>
   );
 }
