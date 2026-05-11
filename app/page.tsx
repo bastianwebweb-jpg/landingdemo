@@ -116,7 +116,7 @@ export default function ReciclArt() {
         />
       </section>
 
-      {/* SECCIÓN ISLA DE COCINA - Versión móvil corregida */}
+      {/* SECCIÓN ISLA DE COCINA */}
       <section className="py-20 md:py-48 px-6 md:px-12 bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-12 md:gap-20 items-center">
           
@@ -124,17 +124,16 @@ export default function ReciclArt() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }} 
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 1.2, ease: "easeOut" }}
             >
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] md:aspect-auto overflow-hidden rounded-3xl">
+              <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-3xl">
                 <Image
                   src="/images/2.jpg"
                   alt="Isla de cocina ReciclArt"
                   fill
                   className="object-cover grayscale-[0.35] hover:grayscale-0 transition-all duration-1000"
                   sizes="(max-width: 768px) 100vw, 70vw"
-                  priority={false}
                   quality={90}
                 />
               </div>
@@ -165,16 +164,18 @@ export default function ReciclArt() {
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 1 }}
                 className="relative"
               >
-                <div className="aspect-[4/3] md:aspect-auto overflow-hidden rounded-3xl shadow-2xl">
+                <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl">
                   <Image
                     src="/images/4.jpg"
                     alt="Consola con herrajes"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 65vw"
+                    quality={90}
                   />
                 </div>
               </motion.div>
